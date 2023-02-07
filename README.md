@@ -16,10 +16,19 @@
 </p>
 
 # 💻 Installation
+### Direct link
 [![Windows](https://img.shields.io/badge/-Windows_x64-blue.svg?style=for-the-badge&logo=windows)](https://somiibo.com/download?download=windows)
 [![MacOS](https://img.shields.io/badge/-MacOS-lightblue.svg?style=for-the-badge&logo=apple)](https://somiibo.com/download?download=macos)
 [![Unix](https://img.shields.io/badge/-Linux/BSD-red.svg?style=for-the-badge&logo=linux)](https://somiibo.com/download?download=linux)
 [![All versions](https://img.shields.io/badge/-All_Versions-lightgrey.svg?style=for-the-badge)](https://somiibo.com/download?download=null)
+
+### Command line
+Clone this repo then run the following commands:
+```shell
+cd <download-directory>
+npm install
+npm start
+```
 
 # 🎉 Features
 - Grow your TikTok organically
