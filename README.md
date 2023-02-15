@@ -38,4 +38,4 @@ npm start
 # 🙋‍♂️ Want to contribute?
 Want to contribute? Great! All contributions are welcome, from code to documentation to graphics to design suggestions to bug reports. 
 
-[Join our Discord server](https://somiibo.com) to participate
+[Join our Discord server](https://somiibo.com/discord) to participate
