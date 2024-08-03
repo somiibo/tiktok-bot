@@ -7,7 +7,7 @@
     "start": "node src/index.js"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=14.0.0"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
   "dependencies": {
     "downloads-folder": "^3.0.3",
     "fs-jetpack": "^5.1.0",
-    "wonderful-fetch": "^0.0.17"
+    "node-powertools": "^1.5.8",
+    "wonderful-fetch": "^1.1.12"
   }
 }
