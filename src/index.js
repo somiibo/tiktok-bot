@@ -4,50 +4,78 @@ const fs = require('fs-jetpack');
 const path = require('path');
 const fetch = require('wonderful-fetch');
 const downloads = require('downloads-folder');
-const util = require('util');
-const execute = util.promisify(require('child_process').exec);
+const powertools = require('node-powertools');
 
 // Main
 module.exports = async function () {
-  // Options
-  const url = getURL();
-  const location = path.join(downloads(), url.split('/').slice(-1)[0]);
   const interval = setInterval(() => {
     log('Still downloading, please be patient! :)');
   }, 3000);
 
-  // Clear
-  fs.remove(location)
+  try {
+    // Clear
+    clear();
 
-  log(`Downloading app to ${location}`)
+    // Download
+    await download();
 
-  // Process
-  const res = await fetch(url);
-  const fileStream = fs.createWriteStream(location);
-  
-  await new Promise((resolve, reject) => {
-    res.body.pipe(fileStream);
-    res.body.on('error', reject);
+    // Launch
+    launch();
 
-    fileStream.on('finish', resolve);
-  })
-  .then((r) => {
-    log('Download finished!');
-
-    launch(location);
-  })
-  .catch((e) => {
-    error('Download failed!', e);
-  })
-  .finally(() => {
+    return
+  } catch (e) {
+    error('Failed to download:', e);
+    error('Ensure you are using the right Node.js version');
+    error('Alternatively, download the app manually from:', getURL());
+  } finally {
     clearInterval(interval);
-  })
-
-  return
+  }
 };
 
 if (require.main === module) {
   module.exports();
+}
+
+function clear() {
+  const location = getDownloadPath();
+
+  log(`Clearing ${location}`)
+
+  fs.remove(location);
+}
+
+function download(location) {
+  return new Promise(async function(resolve, reject) {
+    const location = getDownloadPath();
+    const url = getURL();
+
+    log(`Downloading app to ${location} from ${url}`);
+
+    // Process
+    const res = await fetch(url);
+    const fileStream = fs.createWriteStream(location);
+
+    await new Promise((resolve, reject) => {
+      res.body.pipe(fileStream);
+      res.body.on('error', reject);
+
+      fileStream.on('finish', resolve);
+    })
+    .then((r) => {
+      log('Download finished!');
+    })
+    .catch((e) => {
+      error('Download failed!', e);
+    })
+
+    return resolve();
+  });
+}
+
+function getDownloadPath() {
+  const url = getURL();
+
+  return path.join(downloads(), url.split('/').slice(-1)[0]);
 }
 
 function getURL() {
@@ -59,33 +87,36 @@ function getURL() {
     return 'https://github.com/somiibo/download-server/releases/download/installer/Somiibo-Setup.exe'
   } else {
     return 'https://github.com/somiibo/download-server/releases/download/installer/Somiibo_amd64.deb'
-  }  
+  }
 }
 
-function launch(location) {  
+function launch() {
+  const location = getDownloadPath();
   const name = os.type();
+
+  log(`Launching app at ${location}`)
 
   try {
     if (name === 'Darwin') {
-      execute(`open "${location}"`)
+      powertools.execute(`open "${location}"`)
         .then(() => {
-          
+          log('Drag the app to your Applications folder to install it');
         })
     } else if (name === 'Windows_NT') {
-      execute(`"${location}"`)
+      powertools.execute(`"${location}"`)
         .then(() => {
-          
+
         })
     } else {
-      execute(`sudo apt install "${location}"`)
+      powertools.execute(`sudo apt install "${location}"`)
         .then(() => {
-          execute(`restart-manager`).catch(e => {console.error(e)})    
-        })    
-    }    
+          powertools.execute(`restart-manager`).catch(e => {console.error(e)})
+        })
+    }
   } catch (e) {
     error('Application failed to execute:', e);
     console.log('\n\n\n')
-    log(`Please launch the app manually: ${location}`);    
+    log(`Please launch the app manually: ${location}`);
   }
 }
 
