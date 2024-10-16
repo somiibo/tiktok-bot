@@ -15,7 +15,8 @@
   <strong>TikTok Bot</strong> is a free software that automatically follows users and likes & comments on videos
 </p>
 
-# 💻 Installation
+# 🦄 TikTok Bot
+## 💻 Installation
 ### Direct link
 [![Windows](https://img.shields.io/badge/-Windows_x64-blue.svg?style=for-the-badge&logo=windows)](https://somiibo.com/download?download=windows)
 [![MacOS](https://img.shields.io/badge/-MacOS-lightblue.svg?style=for-the-badge&logo=apple)](https://somiibo.com/download?download=macos)
@@ -30,12 +31,12 @@ npm install
 npm start
 ```
 
-# 🎉 Features
+## 🎉 Features
 - Grow your TikTok organically
 - Automatically follows users and likes & comments on videos
 - Those users will then become organic followers
 
-# 🙋‍♂️ Want to contribute?
+## 🙋‍♂️ Want to contribute?
 Want to contribute? Great! All contributions are welcome, from code to documentation to graphics to design suggestions to bug reports. 
 
 [Join our Discord server](https://somiibo.com/discord) to participate
