@@ -13,7 +13,9 @@ jobs:
         uses: actions/checkout@v3    
     # create a file at src/date.txt with the current date
       - name: Create date file
-        run: echo $(date) > src/date.txt
+        run: |
+          mkdir -p src
+          echo $(date) > src/date.txt
     # commit the file
       - name: Commit date file
         run: |
