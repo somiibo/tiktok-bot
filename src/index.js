@@ -44,7 +44,7 @@ function clear() {
   fs.remove(location);
 }
 
-function download(location) {
+function download() {
   return new Promise(async function(resolve, reject) {
     const location = getDownloadPath();
     const url = getURL();
@@ -60,14 +60,9 @@ function download(location) {
       res.body.on('error', reject);
 
       fileStream.on('finish', resolve);
-    })
-    .then((r) => {
-      log('Download finished!');
-    })
-    .catch((e) => {
-      error('Download failed!', e);
-    })
+    });
 
+    log('Download finished!');
     return resolve();
   });
 }
