@@ -1,0 +1,31 @@
+name: 'Nightly Bump'
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * *' # every night at 1 am UTC
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v3    
+    # create a file at src/date.txt with the current date
+      - name: Create date file
+        run: |
+          mkdir -p src
+          echo $(date) > src/date.txt
+    # commit the file
+      - name: Commit date file
+        run: |
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "actions@github.com"
+          git add src/date.txt
+          git commit -m "Update date.txt"
+    # push the commit
+      - name: Push commit
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}

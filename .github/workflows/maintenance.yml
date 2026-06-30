@@ -1,0 +1,25 @@
+name: Maintenance
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Bump maintenance branch
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git checkout maintenance 2>/dev/null || git checkout -b maintenance
+          git commit --allow-empty --amend -m "Maintenance" || git commit --allow-empty -m "Maintenance"
+          git push --force origin maintenance

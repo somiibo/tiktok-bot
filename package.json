@@ -1,0 +1,28 @@
+{
+  "name": "novabennett95-tiktok-bot",
+  "version": "1.0.0",
+  "description": "TikTok Bot automatically follows users and likes & comments on videos",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "keywords": [
+    "tiktok",
+    "tiktok-bot",
+    "automation",
+    "social-media",
+    "social-media-automation",
+    "marketing",
+    "marketing-automation",
+    "javascript",
+    "nodejs",
+    "saas"
+  ],
+  "author": "Somiibo",
+  "license": "ISC",
+  "homepage": "https://somiibo.com/platforms/tiktok-bot",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/novabennett95/tiktok-bot.git"
+  }
+}
